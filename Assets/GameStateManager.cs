@@ -6,10 +6,7 @@ public class GameStateManager : MonoBehaviour
     {
         None, Init, Menu, Game, Pause,
     }
-    public GameObject mainMenuUI;
-    public GameObject gameplayUI;
-    public GameObject pauseUI;
-
+    public UIManager uiManager;
     public state currentState { get; private set; }
     public state previousState { get; private set; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -48,21 +45,15 @@ public class GameStateManager : MonoBehaviour
                 SetState(state.Menu); break;
             case state.Menu:
                 Time.timeScale = 1f;
-                mainMenuUI.SetActive(true);
-                gameplayUI.SetActive(false);
-                pauseUI.SetActive(false);
+                uiManager.ShowMainMenu();
                 break;
             case state.Pause:
                 Time.timeScale = 0f;
-                pauseUI.SetActive(true);
-                gameplayUI.SetActive(true);
-                mainMenuUI.SetActive(false);
+                uiManager.ShowPauseUI();
                 break;
             case state.Game:
                 Time.timeScale = 1f;
-                gameplayUI.SetActive(true);
-                mainMenuUI.SetActive(false);
-                pauseUI.SetActive(false);
+                uiManager.ShowGameplay();
                 break;
         }
     }
